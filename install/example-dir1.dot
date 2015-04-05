@@ -1,0 +1,7 @@
+// $FreeBSD: head/zh_TW.UTF-8/books/handbook/install/example-dir1.dot 38826 2012-05-17 19:12:14Z hrs $
+
+digraph directory {
+	root [label="Root\n/"];
+	root -> "A1/";
+	root -> "A2/";
+}
