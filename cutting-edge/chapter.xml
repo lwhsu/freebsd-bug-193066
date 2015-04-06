@@ -919,7 +919,7 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	<listitem>
 	  <para>同步 &os.current; 原始碼。
 	    通常使用 <link linkend="svn">svn</link> 來檢查<xref linkend="svn-mirrors"/>
-	    列出的 Subversion 鏡像站 <literal>head</literal> 分支的-CURRENT 原始碼</para>。
+	    列出的 Subversion 鏡像站 <literal>head</literal> 分支的-CURRENT 原始碼。</para>
 
 	  <para>網路很慢或是受到限制的使用者可以如<xref linkend="ctm"/>
 	    所描述的，使用 CTM 來替代，但是他並不如 <application>svn</application> 
