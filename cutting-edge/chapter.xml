@@ -280,7 +280,7 @@ Uninstalling updates... done.</screen>
 	<command>freebsd-update</command> 更新。
 	如果有安裝自訂的核心，在<command>freebsd-update</command>
 	完成安裝更新後，將會被重新編譯和重新安裝。
-	然而，如果< filename>/boot/GENERIC</filename> 存在，
+	然而，如果 <filename>/boot/GENERIC</filename> 存在，
 	<command>freebsd-update</command>將會偵測和更新 <filename>GENERIC</filename> 核心，
 	即使他並非目前系統正在執行的核心。</para>
 
