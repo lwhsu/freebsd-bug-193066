@@ -1,47 +1,80 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!--
      The FreeBSD Documentation Project
+     The FreeBSD Traditional Chinese Project
 
      $FreeBSD: head/zh_TW.UTF-8/books/handbook/cutting-edge/chapter.xml 44974 2014-05-29 16:48:07Z lwhsu $
-     Original revision: 1.225
+     Original revision: 46272
 -->
-<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="cutting-edge">
-  <info><title>更新、升級 FreeBSD</title>
+<chapter xmlns="http://docbook.org/ns/docbook"
+  xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"
+  xml:id="updating-upgrading">
+
+  <info>
+    <title>更新、升級 &os;</title>
+
     <authorgroup>
-      <author><personname><firstname>Jim</firstname><surname>Mock</surname></personname><contrib>Restructured, reorganized, and parts updated by </contrib></author>
+      <author>
+	<personname>
+	  <firstname>Jim</firstname>
+	  <surname>Mock</surname>
+	</personname>
+	<contrib>Restructured, reorganized, and parts updated
+	  by </contrib>
+      </author>
       <!-- Mar 2000 -->
     </authorgroup>
+
     <authorgroup>
-      <author><personname><firstname>Jordan</firstname><surname>Hubbard</surname></personname><contrib>Original work by </contrib></author>
-      <author><personname><firstname>Poul-Henning</firstname><surname>Kamp</surname></personname></author>
-      <author><personname><firstname>John</firstname><surname>Polstra</surname></personname></author>
-      <author><personname><firstname>Nik</firstname><surname>Clayton</surname></personname></author>
+      <author>
+	<personname>
+	  <firstname>Jordan</firstname>
+	  <surname>Hubbard</surname>
+	</personname>
+	<contrib>Original work by </contrib>
+      </author>
+
+      <author>
+	<personname>
+	  <firstname>Poul-Henning</firstname>
+	  <surname>Kamp</surname>
+	</personname>
+      </author>
+
+      <author>
+	<personname>
+	  <firstname>John</firstname>
+	  <surname>Polstra</surname>
+	</personname>
+      </author>
+
+      <author>
+	<personname>
+	  <firstname>Nik</firstname>
+	  <surname>Clayton</surname>
+	</personname>
+      </author>
     </authorgroup>
-    
   </info>
 
-  
-
-  <sect1 xml:id="cutting-edge-synopsis">
+  <sect1 xml:id="updating-upgrading-synopsis">
     <title>概述</title>
 
     <para>&os; 是個持續發展的作業系統。有些人喜歡官方釋出的版本，
-有些人則喜歡和官方最新的開發版本保持同步。然而即使是官方釋出的版本仍然時常有安全性更新或和其他緊急修復。無論使用哪種版本，&os;都提供所有必須的工具來讓系統保持最新，而且可以輕易升級不同版本。本章將描述如何追蹤開發版本，和保持&os;系統維持最新的基本工具
-
-      </para>
+有些人則喜歡和官方最新的開發版本保持同步。然而即使是官方釋出的版本仍然時常有安全性更新或和其他緊急修復。無論使用哪種版本，&os;都提供所有必須的工具來讓系統保持最新，而且可以輕易升級不同版本。本章將描述如何追蹤開發版本，和保持&os;系統維持最新的基本工具。</para>
 
     <para>讀完這章，您將了解︰</para>
- <itemizedlist>
+
+    <itemizedlist>
       <listitem>
 	<para>如何使用
 	  <application>freebsd-update</application>,
 	  <application>Subversion</application>, 或
-	  <application>CTM</application>讓&os;系統保持在最新的版本.</para>
+	  <application>CTM</application> 讓 &os; 系統保持在最新的版本。</para>
       </listitem>
 
       <listitem>
-	<para>如何比較安裝系統和原始複製的狀態</para>
-
+	<para>如何比較安裝系統和原始複製的狀態。</para>
       </listitem>
 
       <listitem>
@@ -51,35 +84,38 @@
       </listitem>
 
       <listitem>
-	<para>兩個開發分支的差異：&os.stable; and &os.current;.</para>
-
+	<para>兩個開發分支的差異：&os.stable; 和 &os.current;。</para>
       </listitem>
 
       <listitem>
-	<para>如何重新編譯和重新安裝整個基礎系統</para>
-
+	<para>如何重新編譯和重新安裝整個基礎系統。</para>
       </listitem>
     </itemizedlist>
-
 
     <para>在開始閱讀這章之前，您需要︰</para>
 
     <itemizedlist>
-      <listitem><para>先設好你的網路(<xref linkend="advanced-networking"/>)。
-	</para>
+      <listitem>
+	<para>設定好你的網路
+	  (<xref linkend="advanced-networking"/>)。</para>
       </listitem>
-      <listitem><para>知道如何透過 port/package 安裝第三方軟體(<xref linkend="ports"/>)。</para></listitem>
-    </itemizedlist>
-    <note>
-      <para>本章中， 使用<command>svn</command>來獲得和更新&os;原始碼。
-為了能使用他，首先要安裝 <package>devel/subversion</package> port或 package.</para>
-    </note>
 
+      <listitem>
+	<para>知道如何安裝第三方軟體
+	  (<xref linkend="ports"/>).</para>
+      </listitem>
+    </itemizedlist>
+
+    <note>
+      <para>本章中，使用 <command>svn</command> 來獲得和更新 &os; 原始碼。
+        為了能使用他，首先要安裝 <package>devel/subversion</package>
+        port 或 package。</para>
+    </note>
   </sect1>
 
   <sect1 xml:id="updating-upgrading-freebsdupdate">
     <info>
-      <title>&os; 更新</title>
+      <title>&os; Update</title>
 
       <authorgroup>
 	<author>
@@ -110,23 +146,23 @@
       <see>updating-upgrading</see>
     </indexterm>
 
-    <para>即時應用安全性更新與升級作業系統到新的發行版本對一個持續運作的系統是重要的。&os; 包括一個叫 <command>freebsd-update</command> 的應用程式可以執行這兩項任務。</para> 
-    <para>這個應用程式支援&os;二進制安全性與和錯誤更新，
+    <para>即時應用安全性更新與升級作業系統到新的發行版本對一個持續運作的系統是重要的。&os; 包括一個叫 <command>freebsd-update</command> 的工具程式可以執行這兩項任務。</para> 
+    <para>這個工具程式支援 &os; 二進制安全性與和錯誤更新，
 不需要手動編譯和安裝修復或新核心。
 安全性團隊目前支援的所有架構和發行版都可以取得二進制更新。
 目前支援的發行版列表和他們的支援期限都列於
       <uri
 	xlink:href="http://www.FreeBSD.org/security/">http://www.FreeBSD.org/security/</uri>。</para>
 
-    <para>這個應用程式也支援作業系統升級到次要的發行版本和升級到令一個發行版分支升級到新的發行版本前，要檢查他的發行宣告，因為他包含發行版本相關的重要資訊。發行公告可以由<uri
+    <para>這個工具程式也支援作業系統升級到次要的發行版本和升級到令一個發行版分支升級到新的發行版本前，要檢查他的發行宣告，因為他包含發行版本相關的重要資訊。發行公告可以由<uri
 	xlink:href="http://www.FreeBSD.org/releases/">http://www.FreeBSD.org/releases/</uri>取得。</para>
 
     <note>
-      <para>如果有使用<command>crontab</command>來應用
-	&man.freebsd-update.8;，那他必須在升級作業系統前先停用。</para>
+      <para>如果有使用<command>crontab</command>來執行
+	&man.freebsd-update.8;，那必須在升級作業系統前先停用。</para>
     </note>
 
-    <para>這節描述<command>freebsd-update</command>使用的設定檔，
+    <para>這節描述 <command>freebsd-update</command> 使用的設定檔，
 示範如何運用安全性修補和如何升級到主要或次要的作業系統發行版，
 以及討論某些升級作業系統的考量。 </para>
 
@@ -143,14 +179,13 @@
       <programlisting># Components of the base system which should be kept updated.
 Components world kernel</programlisting>
 
-      <para>這個參數控制&os; 的哪個部份將保持最新。
-	預設是將更新整個base system和核心。
+      <para>這個參數控制 &os; 的哪個部份將保持最新。
+	預設是將更新整個 base system 和核心。
 個別元件可以被指定，
-例如：<literal>src/base</literal>或 <literal>src/sys</literal>。
+例如：<literal>src/base</literal> 或 <literal>src/sys</literal>。
 然而最好的選項是維持預設設定，
 因為改變設定去包括特定項目，則每個需要的項目都必須要列出。
-時間一久可能會因為原始碼和二進制檔案沒有更新而造成慘重的後果。
-	</para>
+時間一久可能會因為原始碼和二進制檔案沒有更新而造成慘重的後果。</para>
 
       <programlisting># Paths which start with anything matching an entry in an IgnorePaths
 # statement will be ignored.
@@ -159,8 +194,7 @@ IgnorePaths /boot/kernel/linker.hints</programlisting>
       <para>保持特定的目錄，例如
 	<filename>/bin</filename> 或 <filename>/sbin</filename>,
 	在更新過程不被更動，可以將他們的路徑加到此敘述中。
-	這個選項可以防止 <command>freebsd-update</command>覆蓋本機的修改。
-	</para>
+	這個選項可以防止 <command>freebsd-update</command>覆蓋本機的修改。</para>
 
       <programlisting># Paths which start with anything matching an entry in an UpdateIfUnmodified
 # statement will only be updated if the contents of the file have not been
@@ -169,11 +203,9 @@ UpdateIfUnmodified /etc/ /var/ /root/ /.cshrc /.profile</programlisting>
 
       <para>這個選項只會更新特定目錄中未修改的設定檔。
 	任何使用者修改的檔案都不會自動更新。
-	user will prevent the automatic updating of these files.
-	有另一個選項—
+	有另一個選項──
 	<literal>KeepModifiedMetadata</literal>會指示
-	<command>freebsd-update</command>在合併時將改變儲存下來
-	</para>
+	<command>freebsd-update</command> 在合併時將改變儲存下來</para>
 
       <programlisting># When upgrading to a new &os; release, files which match MergeChanges
 # will have any local changes merged into the version from the new release.
@@ -193,8 +225,7 @@ MergeChanges /etc/ /var/named/etc/ /boot/device.hints</programlisting>
 # WorkDir /var/db/freebsd-update</programlisting>
 
       <para>這個目錄是所有修補檔和暫存檔放置處。
-	當使用者進行版本升級時，這個位置應該要有至少1GB的可用磁碟空間。
-	</para>
+	當使用者進行版本升級時，這個位置應該要有至少1GB的可用磁碟空間。</para>
 
       <programlisting># When upgrading between releases, should the list of Components be
 # read strictly (StrictComponents yes) or merely as a list of components
@@ -205,14 +236,14 @@ MergeChanges /etc/ /var/named/etc/ /boot/device.hints</programlisting>
       <para>當這個選項設定為<literal>yes</literal>，
 	<command>freebsd-update</command> 將會假設
 	<literal>Components</literal> 列表已完成，將不會嘗試做列表外的改變。
-實際上 <command>freebsd-update</command>將嘗試更新每一個屬於 <literal>Components</literal>列表的檔案。
-	</para>
+	實際上 <command>freebsd-update</command>將嘗試更新每一個屬於
+	<literal>Components</literal> 列表的檔案。</para>
     </sect2>
 
     <sect2 xml:id="freebsdupdate-security-patches">
       <title>運用安全性修補</title>
 
-      <para>運用&os;安全性修補的過程已經被簡化，
+      <para>運用 &os; 安全性修補的過程已經被簡化，
 	允許系統管理員使用<command>freebsd-update</command>保持系統更新。
 	更多關於&os; 安全性報告的資訊可以參考
 	<xref linkend="security-advisories"/>。</para>
@@ -225,21 +256,19 @@ MergeChanges /etc/ /var/named/etc/ /boot/device.hints</programlisting>
 &prompt.root; <userinput>freebsd-update install</userinput></screen>
 
       <para>如果更新執行任何核心修補，系統將會重新開機以使用修補過的核心。
-如果在任何執行中的二進位檔進行修補，被影響的應用程式將會重新啟動來使用修補過的二進位檔。
-	</para>
+如果在任何執行中的二進位檔進行修補，被影響的應用程式將會重新啟動來使用修補過的二進位檔。</para>
 
-      <para>將以下項目加入 <filename>/etc/crontab</filename>系統可以每天自動檢查是否有更新:</para>
+      <para>將以下項目加入 <filename>/etc/crontab</filename> 系統可以每天自動檢查是否有更新:</para>
 
       <programlisting>@daily                                  root    freebsd-update cron</programlisting>
 
       <para>如果有新的修補，它們將會自動下載，但是還不會執行。
 	管理者<systemitem
-	  class="username">root</systemitem>將會收到email來檢視修補然後手動執行
-	<command>freebsd-update install</command>來安裝</para>
+	  class="username">root</systemitem> 將會收到email來檢視修補然後手動執行
+	<command>freebsd-update install</command> 來安裝</para>
 
       <para>如果有發生任何錯誤，<command>freebsd-update</command>
-	可以使用以下指令回溯最後的變更：
-	</para>
+	可以使用以下指令回溯最後的變更：</para>
 
       <screen>&prompt.root; <userinput>freebsd-update rollback</userinput>
 Uninstalling updates... done.</screen>
@@ -247,38 +276,35 @@ Uninstalling updates... done.</screen>
       <para>再次，如果核心或任何核心模組有變更，系統將重新開機，受影響的二進位檔會重新執行。
 	</para>
 
-      <para>只有<filename>GENERIC</filename>核心可以自動被
-	<command>freebsd-update</command>更新。
+      <para>只有 <filename>GENERIC</filename> 核心可以自動被
+	<command>freebsd-update</command> 更新。
 	如果有安裝自訂的核心，在<command>freebsd-update</command>
-完成安裝更新後，將會被重新編譯和重新安裝。
-	然而，如果<filename>/boot/GENERIC</filename>存在，
-	<command>freebsd-update</command>將會偵測和更新 <filename>GENERIC</filename>核心，
-	即使他並非目前系統正在執行的核心。
-	</para>
+	完成安裝更新後，將會被重新編譯和重新安裝。
+	然而，如果< filename>/boot/GENERIC</filename> 存在，
+	<command>freebsd-update</command>將會偵測和更新 <filename>GENERIC</filename> 核心，
+	即使他並非目前系統正在執行的核心。</para>
 
       <note>
-	<para>永遠在<filename>/boot/GENERIC</filename>保持一份<filename>GENERIC</filename>
+	<para>永遠在 <filename>/boot/GENERIC</filename> 保留一份 <filename>GENERIC</filename>
 	  核心的備份。這對於診斷不同的問題與版本的升級有幫助。
-	參考<xref
-	    linkend="freebsd-update-custom-kernel-9x"/>或<xref
-	    linkend="freebsd-update-custom-kernel-8x"/>的關於如何備份<filename>GENERIC</filename> 核心的說明
-	  </para>
+	  參考<xref
+	    linkend="freebsd-update-custom-kernel-9x"/> 或 <xref
+	    linkend="freebsd-update-custom-kernel-8x"/> 關於如何備份
+	  <filename>GENERIC</filename> 核心的說明</para>
       </note>
 
-      <para>除非<filename>/etc/freebsd-update.conf</filename>的預設設定被改變，
+      <para>除非 <filename>/etc/freebsd-update.conf</filename> 的預設設定被改變，
 	<command>freebsd-update</command>將安裝更新過的核心原始碼和其餘的更新
-	然後就可以照平常的方式重新編譯和重新安裝新的自訂核心。
-	</para>
+	然後就可以照平常的方式重新編譯和重新安裝新的自訂核心。</para>
 
-      <para>以<command>freebsd-update</command>發行的更新並非總是包含核心。
-如果核心的原始碼沒有被<command>freebsd-update install</command>變更，並不需要重新編譯自訂核心。
-	然而<command>freebsd-update</command>總是會更新
+      <para>以 <command>freebsd-update</command> 發行的更新並非總是包含核心。
+	如果核心的原始碼沒有被 <command>freebsd-update install</command> 變更，並不需要重新編譯自訂核心。
+	然而 <command>freebsd-update</command> 總是會更新
 	<filename>/usr/src/sys/conf/newvers.sh</filename>。目前修補的程度，
-如同執行<command>uname -r</command>顯示的<literal>-p</literal>
-數字是由這個檔案取得。
-	即使沒有做任何改變，重新編譯核心會讓<command>uname</command>正確地報告目前系統修補的程度。
-	這對於維護多個系統特別有幫助，可以讓你快速評估每個系統安裝的更新。
-	</para>
+	如同執行 <command>uname -r</command> 顯示的 <literal>-p</literal>
+	數字是由這個檔案取得。
+	即使沒有做任何改變，重新編譯核心會讓 <command>uname</command> 正確地報告目前系統修補的程度。
+	這對於維護多個系統特別有幫助，可以讓你快速評估每個系統安裝的更新。</para>
     </sect2>
 
     <sect2 xml:id="freebsdupdate-upgrade">
@@ -290,12 +316,11 @@ Uninstalling updates... done.</screen>
 	<firstterm>主要版本</firstterm>更新發生在當 &os;
 	從一個主要版本升級到主要版本升級到另一個主要版本時
 ，例如從 &os;&nbsp;9.X 到 &os;&nbsp;10.X。
-兩種更新都可以透過提供 <command>freebsd-update</command> 發行版本來執行。
-	</para>
+兩種更新都可以透過提供 <command>freebsd-update</command> 發行版本來執行。</para>
 
       <note>
 	<para>如果系統正在執行自訂的核心，開始升級前，
-確定<filename>GENERIC</filename>核心的副本在
+	確定 <filename>GENERIC</filename> 核心的副本在
 	  <filename>/boot/GENERIC</filename>。
 	   參考<xref
 	    linkend="freebsd-update-custom-kernel-9x"/> 或 <xref
@@ -303,14 +328,14 @@ Uninstalling updates... done.</screen>
 	  <filename>GENERIC</filename>核心副本的說明。</para>
       </note>
 
-      <para>以下的指令執行在&os;&nbsp;9.0 系統時，
+      <para>以下的指令執行在 &os;&nbsp;9.0 系統時，
 	將會把系統升級至 &os;&nbsp;9.1：</para>
 
        <screen>&prompt.root; <userinput>freebsd-update -r 9.1-RELEASE upgrade</userinput></screen>
 
-      <para>當收到這個指令時，
-	<command>freebsd-update</command>將會評估設定檔和目前的系統來收集升級需要的資訊。
-螢幕上的清單會顯示偵測到或沒偵測到哪些元件。例如： </para> 
+      <para>當收到這個指令後，
+	<command>freebsd-update</command> 將會評估設定檔和目前的系統來收集升級需要的資訊。
+	螢幕上的清單會顯示偵測到或沒偵測到哪些元件。例如： </para> 
       <screen>Looking up update.FreeBSD.org mirrors... 1 mirrors found.
 Fetching metadata signature for 9.0-RELEASE from update1.FreeBSD.org... done.
 Fetching metadata index... done.
@@ -328,12 +353,10 @@ world/proflibs
 
 Does this look reasonable (y/n)? <userinput>y</userinput></screen>
 
-      <para>此時，<command>freebsd-update</command>將嘗試下載所有升級需要的檔案。
-在某些案例，使用者會被提示一些關於安裝什麼或是如何進行的問題。
-	</para>
+      <para>此時，<command>freebsd-update</command> 將嘗試下載所有升級需要的檔案。
+在某些案例，使用者會被提示一些關於安裝什麼或是如何進行的問題。</para>
 
-      <para>當使用自訂核心，上述的步驟將會產生如下列的警告：
-	</para>
+      <para>當使用自訂核心，上述的步驟將會產生如下列的警告：</para>
 
       <screen>WARNING: This system is running a "<replaceable>MYKERNEL</replaceable>" kernel, which is not a
 kernel configuration distributed as part of FreeBSD 9.0-RELEASE.
@@ -341,21 +364,21 @@ This kernel will not be updated: you MUST update the kernel manually
 before running "/usr/sbin/freebsd-update install"</screen>
 
       <para>這個警告可以安全地忽略，升級過程將會立即使用更新過的
-	 <filename>GENERIC</filename>核心 </para> 
+	 <filename>GENERIC</filename> 核心</para> 
+
       <para>一旦所有的修補都被下載到本地的系統，
 	它們將會被運用。這個過程可能會花點時間，取決於機器的速度和工作量
 	設定檔將會被合併。
-合併的過程中當檔案被合併或是手動合併螢幕上出現編輯器時需要使用者介入。
+	合併的過程中當檔案被合併或是手動合併螢幕上出現編輯器時需要使用者介入。
 	每一個成功合併的結果將會顯示給使用者。
-失敗或是被忽略的合併將會使程序中斷。使用者稍候可能想要備份
+	失敗或是被忽略的合併將會使程序中斷。使用者稍候可能想要備份
 	<filename>/etc</filename> 和手動合併重要的檔案，例如：
 	<filename>master.passwd</filename> 或
 	<filename>group</filename> 。</para>
 
       <note>
 	<para>當所有修補和合併在另一個目錄進行時，系統還不會被警告。
-一旦所有修補都成功運用，所有設定檔都被合併，而且過程順利，使用者可以以下指令來將這些改變付諸於磁碟上：
-	   </para>
+	  一旦所有修補都成功運用，所有設定檔都被合併，而且過程順利，使用者可以以下指令來將這些改變付諸於磁碟上：</para>
 
 	<screen>&prompt.root; <userinput>freebsd-update install</userinput></screen>
       </note>
@@ -368,10 +391,10 @@ before running "/usr/sbin/freebsd-update install"</screen>
 
       <warning>
 	<para>如果機器以遠端遙控來更新，
-使用<filename>GENERIC</filename>核心重新開機前，
+	  使用<filename>GENERIC</filename>核心重新開機前，
 	  確定他包含所有系統開機需要的驅動程式而且連接網路，
 	  特別是當執行的自訂核心包含核心模組提供內建功能時，
-確定暫時地使用<filename>/boot/loader.conf</filename> 工具載入這些模組到<filename>GENERIC</filename>核心。 
+	  確定暫時地使用 <filename>/boot/loader.conf</filename> 工具載入這些模組到 <filename>GENERIC</filename> 核心。 
 	  建議停用非必須的服務和磁碟與網路掛載直到升級程序完成。
 	  </para>
       </warning>
@@ -384,23 +407,23 @@ before running "/usr/sbin/freebsd-update install"</screen>
       <para>一旦系統重新上線，使用以下指令重新開始
 	<command>freebsd-update</command>。
 	因為程序的狀態已被儲存，
-	<command>freebsd-update</command>將不會重頭開始，他會進行到下一個階段
+	<command>freebsd-update</command> 將不會重頭開始，他會進行到下一個階段
 	，移除所有舊的共用程式庫和目標檔。</para>
 
       <screen>&prompt.root; <userinput>freebsd-update install</userinput></screen>
 
       <note>
-	<para>根據程式庫版本編號， 可能有兩個而不是三個安裝階段。 </para>
+	<para>根據程式庫版本編號， 可能有兩個而不是三個安裝階段。</para>
       </note>
 
       <para>升級程序現在完成了。如果這是主要的版本升級，參考
 	<xref linkend="freebsdupdate-portsrebuild"/>
-的描述重新安裝所有的ports和套件。</para>
+	的描述重新安裝所有的ports和套件。</para>
 
       <sect3 xml:id="freebsd-update-custom-kernel-9x">
 	<title> &os;&nbsp;9.X 以上自訂核心</title>
 
-	<para>使用 <command>freebsd-update</command>前，確定有一份核心的副本, ensure
+	<para>使用 <command>freebsd-update</command> 前，確定有一份核心的副本, ensure
 	  that a copy of the <filename>GENERIC</filename> kernel
 	  exists in <filename>/boot/GENERIC</filename>.  If a custom
 	  kernel has only been built once, the kernel in
@@ -440,7 +463,7 @@ before running "/usr/sbin/freebsd-update install"</screen>
       </sect3>
 
       <sect3 xml:id="freebsd-update-custom-kernel-8x">
-	<title>&os;&nbsp;8.X自訂核心</title>
+	<title>&os;&nbsp;8.X 自訂核心</title>
 
 	<para>On an &os;&nbsp;8.X system, the instructions for
 	  obtaining or building a <filename>GENERIC</filename> kernel
@@ -456,7 +479,7 @@ before running "/usr/sbin/freebsd-update install"</screen>
 &prompt.root; <userinput>./install.sh GENERIC</userinput></screen>
 
 	<para>Replace <filename
-	    class="directory"><replaceable>X.Y-RELEASE</replaceable></filename>
+	    ><replaceable>X.Y-RELEASE</replaceable></filename>
 	  with the version of the release being used.  The
 	  <filename>GENERIC</filename> kernel will be installed in
 	  <filename>/boot/GENERIC</filename> by default.</para>
@@ -481,15 +504,14 @@ before running "/usr/sbin/freebsd-update install"</screen>
       </sect3>
 
       <sect3 xml:id="freebsdupdate-portsrebuild">
-	<title>主要版本更新後重新建立Ports</title>
+	<title>主要版本更新後更新 Packages</title>
 
 	<para>一般來說，次要版本更新後安裝的應用程式可以沒有問題地繼續執行。
 	  主要版本間使用不同的應用程式二進位介面 Application Binary Interfaces
 	  (<acronym>ABI</acronym>s)，會破壞大部份第三方應用程式。
-	  主要版本更新後，所有安裝的套件和ports需要使用應用程式來升級，例如
-	  <package>ports-mgmt/portmaster</package>。  A
-	  重新編譯所有應用程式，可以使用以下指令完成：
-	  </para>
+	  主要版本更新後，所有安裝的套件和 ports 需要使用應用程式來升級，例如
+	  <package>ports-mgmt/portmaster</package>
+	  重新編譯所有應用程式，可以使用以下指令完成：</para>
 
 	<screen>&prompt.root; <userinput>portmaster -af</userinput></screen>
 
@@ -498,12 +520,11 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	  </para>
 
 	<para>一旦軟體升級完成, 執行
-	  <command>freebsd-update</command>來完成所有升級過程的零碎事情。
-	  ：</para>
+	  <command>freebsd-update</command> 來完成所有升級過程的零碎事情 ：</para>
 
 	<screen>&prompt.root; <userinput>freebsd-update install</userinput></screen>
 
-	<para>如果是暫時使用<filename>GENERIC</filename>核心，
+	<para>如果是暫時使用 <filename>GENERIC</filename> 核心，
 	  現在請使用
 	<xref linkend="kernelconfig"/>的說明編譯和安裝新的自訂核心。</para>
 
@@ -525,27 +546,26 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	  <acronym>IDS</acronym> ，例如
 	  <package>security/snort</package>。當
 	  <command>freebsd-update</command> 儲存資料在磁碟裡，是有被竄改的可能性
-	  可以使用<varname>kern.securelevel</varname>
-或是將沒有在使用的<command>freebsd-update</command> 
-的資料儲存在唯讀檔案系統來減少這樣的可能性，
-比較好的解決方法是將系統和安全的磁碟，例如
-<acronym>DVD</acronym>或是安全的外接
+	  可以使用 <varname>kern.securelevel</varname>
+	  或是將沒有在使用的 <command>freebsd-update</command> 
+	  的資料儲存在唯讀檔案系統來減少這樣的可能性，
+	  比較好的解決方法是將系統和安全的磁碟，例如
+	  <acronym>DVD</acronym> 或是安全的外接
 	  <acronym>USB</acronym> 磁碟裝置做比較。
-	  另類的方法是使用在<xref linkend="security-ids"/>描述的內建應用程式提供的<acronym>IDS</acronym> 功能</para>
+	  另類的方法是使用在 <xref linkend="security-ids"/> 描述的內建應用程式提供的
+	  <acronym>IDS</acronym> 功能</para>
       </warning>
 
-      <para>為了開始比較，先指定特定的輸出檔案來儲存結果：
-	</para>
+      <para>為了開始比較，先指定特定的輸出檔案來儲存結果：</para>
 
       <screen>&prompt.root; <userinput>freebsd-update IDS &gt;&gt; outfile.ids</userinput></screen>
 
       <para>現在系統將會被檢查，
-而包含已知發行版和現在安裝版的<acronym>SHA256</acronym>雜湊值
-的冗長檔案清單將會被送至指定的輸出檔。
-	</para>
+	而包含已知發行版和現在安裝版的<acronym>SHA256</acronym>雜湊值
+	的冗長檔案清單將會被送至指定的輸出檔。</para>
 
       <para>清單的項目相當長，但是輸出格式很容易被分析。
-例如，要獲得一個和發行版不同的檔案清單，可以下以下指令： </para>
+	例如，要獲得一個和發行版不同的檔案清單，可以下以下指令：</para>
 
       <screen>&prompt.root; <userinput>cat outfile.ids | awk '{ print $1 }' | more</userinput>
 /etc/master.passwd
@@ -556,9 +576,8 @@ before running "/usr/sbin/freebsd-update install"</screen>
       <para>這個輸出範例已經被截短，原來有更多的檔案存在。
 	有些檔案自然會有修改。例如，如果有使用者被加入系統，
 	<filename>/etc/passwd</filename> 會被修改
-	如果<command>freebsd-update</command>有更新過，核心模組可能會不同
-	 為了要排除特定的檔案或目錄，把它們加到<filename>/etc/freebsd-update.conf</filename>裡的<literal>IDSIgnorePaths</literal> 選項。
-	</para>
+	如果 <command>freebsd-update</command> 有更新過，核心模組可能會不同
+	 為了要排除特定的檔案或目錄，把它們加到<filename>/etc/freebsd-update.conf</filename> 裡的 <literal>IDSIgnorePaths</literal> 選項。</para>
     </sect2>
   </sect1>
 
@@ -580,9 +599,8 @@ before running "/usr/sbin/freebsd-update install"</screen>
       網站，使用手冊， <acronym>常見問答</acronym>和文章的本地端副本。</para>
 
     <para>這一節描述如何使用原始碼或是
-&os; Ports 管理機制將
-本地端&os;文件保持最新。
-      </para>
+	&os; Ports 管理機制將
+	本地端&os;文件保持最新。</para>
 
     <para>編輯和發佈文件更正的資訊
      請參考 &os; 文件計劃新貢獻者入門書
@@ -595,36 +613,33 @@ before running "/usr/sbin/freebsd-update install"</screen>
       <para>重新從原始碼編譯&os; 文件需要一些不是屬於
 	&os; 基礎系統的工具
 	這些需要的工具包括
-	<application>svn</application>可以從
-	<package>textproc/docproj</package>套件安裝或是
+	<application>svn</application> 可以從
+	<package>textproc/docproj</package> 套件安裝或是
 	&os; 文件計劃的開發的port</para>
 
-      <para>一旦安裝好，請使用<application>svn</application>
-來取得乾淨的文件原始碼副本。
-	將<replaceable>https://svn0.us-west.FreeBSD.org</replaceable>
-	置換成<xref linkend="svn-mirrors"/>裡地理位置和你最近的鏡像站：
-</para>
+      <para>一旦安裝好，請使用 <application>svn</application>
+	來取得乾淨的文件原始碼副本。
+	將 <replaceable>https://svn0.us-west.FreeBSD.org</replaceable>
+	置換成 <xref linkend="svn-mirrors"/> 裡地理位置和你最近的鏡像站：</para>
 
       <screen>&prompt.root; <userinput>svn checkout <replaceable>https://svn0.us-west.FreeBSD.org</replaceable>/doc/head /usr/doc</userinput></screen>
 
-      <para>第一次下載文件原始碼需要花點時間，請讓他執行完畢
-	</para>
+      <para>第一次下載文件原始碼需要花點時間，請讓他執行完畢</para>
 
       <para>將來文件原始碼更新的取得可以執行：</para>
 
       <screen>&prompt.root; <userinput>svn update /usr/doc</userinput></screen>
 
       <para>當最新的文件原始碼快照已經抓取到
-	<filename>/usr/doc</filename>，一切都已就緒可以對已安裝的文件進行更新。
-	</para>
+	<filename>/usr/doc</filename>，一切都已就緒可以對已安裝的文件進行更新。</para>
 
       <para>要完整更新所有語言，可以執行:</para>
 
       <screen>&prompt.root; <userinput>cd /usr/doc</userinput>
 &prompt.root; <userinput>make install clean</userinput></screen>
 
-      <para>如果只要更新一個特定的語言，可以在<filename>/usr/doc</filename>
-中特定語言的子目錄執行<command>make</command>:</para>
+      <para>如果只要更新一個特定的語言，可以在 <filename>/usr/doc</filename>
+中特定語言的子目錄執行 <command>make</command>:</para>
 
       <screen>&prompt.root; <userinput>cd /usr/doc/en_US.ISO8859-1</userinput>
 &prompt.root; <userinput>make install clean</userinput></screen>
@@ -634,14 +649,14 @@ before running "/usr/sbin/freebsd-update install"</screen>
 
       <screen>&prompt.root; <userinput>make update</userinput></screen>
 
-      <para>輸出格式可以經由設定 <varname>FORMATS</varname>來指：</para>
+      <para>輸出格式可以經由設定 <varname>FORMATS</varname> 來指：</para>
 
       <screen>&prompt.root; <userinput>cd /usr/doc</userinput>
 &prompt.root; <userinput>make FORMATS='html html-split' install clean</userinput></screen>
 
       <para>有幾個選項可以使得只要更新部份文件或是建立特定翻譯的過程更加簡易。
-這些選項可以在<filename>/etc/make.conf</filename>中設定成整個系統的選項，
-或是經由命令列傳送給<command>make</command>。</para>
+這些選項可以在 <filename>/etc/make.conf</filename> 中設定成整個系統的選項，
+或是經由命令列傳送給 <command>make</command>。</para>
 
       <para>這些選項包括:</para>
 
@@ -650,7 +665,8 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	  <term><varname>DOC_LANG</varname></term>
 
 	  <listitem>
-	    <para>要建立或是安裝的語言和編碼清單，例如英文文件用<literal>en_US.ISO8859-1</literal>。</para>
+	    <para>要建立或是安裝的語言和編碼清單，例如英文文件用
+	      <literal>en_US.ISO8859-1</literal>。</para>
 	  </listitem>
 	</varlistentry>
 
@@ -660,8 +676,7 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	  <listitem>
 	    <para>單一格式或是要建立的輸出格式清單。目前支援 <literal>html</literal>,
 	      <literal>html-split</literal>, <literal>txt</literal>,
-	      <literal>ps</literal>, 和 <literal>pdf</literal>
-	      。</para>
+	      <literal>ps</literal>, 和 <literal>pdf</literal>。</para>
 	  </listitem>
 	</varlistentry>
 
@@ -676,12 +691,12 @@ before running "/usr/sbin/freebsd-update install"</screen>
       </variablelist>
 
       <para>更多關於&os;全系統的<command>make</command> 變數，
-請參考&man.make.conf.5;。</para>
+	請參考&man.make.conf.5;。</para>
     </sect2>
 
     <sect2 xml:id="doc-ports-install-package">
       <info>
-	<title>從Ports更新文件</title>
+	<title>從 Ports 更新文件</title>
 
 	<authorgroup>
 	  <author>
@@ -703,7 +718,7 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	<see>Updating and Upgrading</see>
       </indexterm>
 
-      <para>前一節說明了從原始碼更新&os;文件的方法。本節敘述使用Ports Collection的另類方法：</para>
+      <para>前一節說明了從原始碼更新 &os; 文件的方法。本節敘述使用 Ports Collection 的另一種方法：</para>
 
       <itemizedlist>
 	<listitem>
@@ -841,30 +856,26 @@ before running "/usr/sbin/freebsd-update install"</screen>
     <para>&os; 有兩個發展分支： &os.current; and
       &os.stable;.</para>
 
-    <para>本節將將解釋每個分支和他的預設的使用者，以及如何保持每個分支系統在最新。
-      </para>
+    <para>本節將將解釋每個分支和他的預設的使用者，以及如何保持每個分支系統在最新。</para>
 
     <sect2 xml:id="current">
       <title>使用 &os.current;</title>
 
-      <para>&os.current; 是&os; 開發的<quote>最前線</quote>，&os.current;的使用者應有較強的技術能力。
+      <para>&os.current; 是 &os; 開發的<quote>最前線</quote>，&os.current;的使用者應有較強的技術能力。
 	技術能力較弱的使用者想追蹤發展分支應該追蹤 &os.stable;。</para>
 
       <para>&os.current; 是 &os; 最新的原始碼，包括正在進行的工作，
-實驗性的改變，以及可能會或可能不會在下一個官方發行版出現的過渡時期機制。
+	實驗性的改變，以及可能會或可能不會在下一個官方發行版出現的過渡時期機制。
 	而許多 &os; 開發者每天編譯
-	 &os.current; 原始碼，可能有一段短暫的時間原始碼無法編譯成功。
+	&os.current; 原始碼，可能有一段短暫的時間原始碼無法編譯成功。
 	這些問題會儘快被解決，但是無論
-	&os.current; 帶來災難或是新功能，在同步原始碼時都要考量的問題。
-	</para>
+	&os.current; 帶來災難或是新功能，在同步原始碼時都要考量的問題。</para>
 
-      <para>&os.current; 適合下列三類人：
-	</para>
+      <para>&os.current; 適合下列三類人：</para>
 
       <orderedlist>
 	<listitem>
-	  <para>積極致力於某一部份原始碼樹的 &os; 社群成員。
-	    </para>
+	  <para>積極致力於某一部份原始碼樹的 &os; 社群成員。</para>
 	</listitem>
 
 	<listitem>
@@ -873,16 +884,15 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	</listitem>
 
 	<listitem>
-	  <para>關注某些事物，或是想參考目前的原始碼，或是偶爾提供註解或貢獻原始碼的使用者。
-	    </para>
+	  <para>關注某些事物，或是想參考目前的原始碼，或是偶爾提供註解或貢獻原始碼的使用者。</para>
 	</listitem>
       </orderedlist>
 
       <para>&os.current; <emphasis>不應該</emphasis>被認為是在下一版發行前
-取得最新功能的快速途徑，因為尚未發行的功能並未被完整測試，很可能有bug。
+	取得最新功能的快速途徑，因為尚未發行的功能並未被完整測試，很可能有bug。
 	他也不是一個取得bug修補的快速方式，
-因為任何已知bug的修補有可能產生新的bug。
-	&os.current;沒有任何
+	因為任何已知bug的修補有可能產生新的bug。
+	&os.current; 沒有任何
 	<quote>官方支援</quote>。</para>
 
       <indexterm>
@@ -896,45 +906,45 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	<listitem>
 	  <para>加入 &a.current.name; 和
 	    &a.svn-src-head.name; 郵件論壇。這是<emphasis>必須的</emphasis>
-以查看人們關於系統目前狀態的評論並接收&os.current;目前狀態的重要公告。 </para>
+	    以查看人們關於系統目前狀態的評論並接收 &os.current; 目前狀態的重要公告。</para>
 
 	  <para> &a.svn-src-head.name; 論壇紀錄每一次修改的紀錄，
-和可能產生的副作用的相關資訊 </para>
+	    和可能產生的副作用的相關資訊 </para>
 
-	  <para>前往&a.mailman.lists.link;，點選論壇來訂閱，照網頁指示的步驟作，
-為了追蹤整個原始碼樹，不是只有&os.current;的改變，請訂閱
-&a.svn-src-all.name;論壇。</para>
+	  <para>前往 &a.mailman.lists.link;，點選論壇來訂閱，照網頁指示的步驟作，
+	    為了追蹤整個原始碼樹，不是只有 &os.current; 的改變，請訂閱
+	    &a.svn-src-all.name;論壇。</para>
 	</listitem>
 
 	<listitem>
 	  <para>同步 &os.current; 原始碼。
-通常使用<link linkend="svn">svn</link>來檢查<xref linkend="svn-mirrors"/>
-列出的Subversion鏡像站<literal>head</literal>分支的-CURRENT 原始碼</para>。
+	    通常使用 <link linkend="svn">svn</link> 來檢查<xref linkend="svn-mirrors"/>
+	    列出的 Subversion 鏡像站 <literal>head</literal> 分支的-CURRENT 原始碼</para>。
 
 	  <para>網路很慢或是受到限制的使用者可以如<xref linkend="ctm"/>
-所描述的，使用CTM來替代，但是他並不如<application>svn</application> 
-一樣值得信賴， <application>svn</application> 是建議的同步原始碼的方法。</para>
+	    所描述的，使用 CTM 來替代，但是他並不如 <application>svn</application> 
+	    一樣值得信賴， <application>svn</application> 是建議的同步原始碼的方法。</para>
 	</listitem>
 
 	<listitem>
 	  <para> 由於程式碼庫的大小的，
-有些使用者選擇只同步部份他們有興趣或提供修補貢獻的部份原始碼。然而，
-計劃從原始碼編譯整個作業系統的使用者必須下載 <emphasis>全部</emphasis>
-的&os.current;，而不是只有選擇的部份。</para>
+	    有些使用者選擇只同步部份他們有興趣或提供修補貢獻的部份原始碼。然而，
+	    計劃從原始碼編譯整個作業系統的使用者必須下載 <emphasis>全部</emphasis>
+	    的&os.current;，而不是只有選擇的部份。</para>
 
-	  <para>編譯 &os.current;前
+	  <para>編譯 &os.current; 前
 	    <indexterm>
 	      <primary>-CURRENT</primary>
 		<secondary>compiling</secondary>
-	    </indexterm>，請非常仔細地閱讀<filename>/usr/src/Makefile</filename>
+	    </indexterm>，請非常仔細地閱讀 <filename>/usr/src/Makefile</filename>
 	    並遵從 <xref linkend="makeworld"/>的指示。
 	    閱讀 &a.current; 和 <filename>/usr/src/UPDATING</filename>
-來掌握下一發行版的最新狀態。</para>
+	    來掌握下一發行版的最新狀態。</para>
 	</listitem>
 
 	<listitem>
-	  <para>熱血!很鼓勵 &os.current; 使用者
-發表他們對加強哪些功能或是修復哪些錯誤的建議。
+	  <para>熱血！很鼓勵 &os.current; 使用者
+	    發表他們對加強哪些功能或是修復哪些錯誤的建議。
 	    如果您在建議時能附上相關程式碼的話， 那真是太棒了！</para>
 	</listitem>
       </orderedlist>
@@ -943,22 +953,21 @@ before running "/usr/sbin/freebsd-update install"</screen>
     <sect2 xml:id="stable">
       <title>使用 &os.stable;</title>
 
-      <para>主要發行版就是由&os.stable;這個開發分支而來。
+      <para>主要發行版就是由 &os.stable; 這個開發分支而來。
 	修改進入這個分支的速度比較慢，
-並且假設這些修改已經先在&os.current;測試過。
-這<emphasis>仍然</emphasis>是一個開發分支，而且在任何時候，&os.stable; 的原始碼都可能適合或不適合一般的使用。他就只是另一個開發分支，不是給終端使用者用的。
-沒有要進行測試的使用者應該執行最新的&os;發行版。</para>
+	並且假設這些修改已經先在 &os.current; 測試過。
+	這<emphasis>仍然</emphasis>是一個開發分支，而且在任何時候，&os.stable; 的原始碼都可能適合或不適合一般的使用。他就只是另一個開發分支，不是給終端使用者用的。
+	沒有要進行測試的使用者應該執行最新的 &os; 發行版。</para>
 
-      <para>若有興趣去追蹤、貢獻&os;開發過程，尤其是會跟
-	&os;接下來的發行版有關的人,應該考慮採用&os.stable;。</para>
+      <para>若有興趣去追蹤、貢獻 &os; 開發過程，尤其是會跟
+	&os;接下來的發行版有關的人,應該考慮採用 &os.stable;。</para>
 
-      <para>儘管&os.stable; 應該在任何時候均能正確編譯、運作，但是沒有人能擔保一定如此。因為使用&os.stable; 的人比&os.current;多，無可避免地，
-有時候會在 &os.stable;發現錯誤和極端的狀況，而這在&os.current;並非顯而易見。
-由於上述這些理由，我們並不建議盲目追隨 &os.stable;。
-特別重要的是
+      <para>儘管 &os.stable; 應該在任何時候均能正確編譯、運作，但是沒有人能擔保一定如此。因為使用 &os.stable; 的人比 &os.current;多，無可避免地，
+	有時候會在 &os.stable; 發現錯誤和極端的狀況，而這在 &os.current; 並非顯而易見。
+	由於上述這些理由，我們並不建議盲目追隨 &os.stable;。
+	特別重要的是
 	<emphasis>不要</emphasis>在沒有於開發或測試環境完整測試程式碼之前，
-升級任何上線的伺服器到
-	&os.stable;。</para>
+	升級任何上線的伺服器到 &os.stable;。</para>
 
       <para>追蹤 &os.stable;:</para>
 
@@ -968,28 +977,26 @@ before running "/usr/sbin/freebsd-update install"</screen>
       </indexterm>
       <orderedlist>
 	<listitem>
-	  <para>訂閱&a.stable.name;論壇來隨時瞭解&os.stable;編譯時的相依關係
-或是其他特別需要注意的議題。
-開發者在考慮一些有爭議的修正或更新時，就會先在這裡發信說明， 給使用者有機會可以反應， 看他們對所提的更改是否有什麼建議或問題。</para>
+	  <para>訂閱&a.stable.name;論壇來隨時瞭解 &os.stable; 編譯時的相依關係
+	    或是其他特別需要注意的議題。
+	    開發者在考慮一些有爭議的修正或更新時，就會先在這裡發信說明， 給使用者有機會可以反應， 看他們對所提的更改是否有什麼建議或問題。</para>
 
 	  <para>訂閱要追蹤分支的 <application>svn</application>相關論壇。
-例如，追蹤9-STABLE分支的使用者應該訂閱&a.svn-src-stable-9.name;論壇。
-這個論壇紀錄每一次修改的紀錄，
-和可能產生的副作用的相關資訊。</para>
+	    例如，追蹤9-STABLE分支的使用者應該訂閱&a.svn-src-stable-9.name;論壇。
+	    這個論壇紀錄每一次修改的紀錄，和可能產生的副作用的相關資訊。</para>
 
 	  <para>前往&a.mailman.lists.link;，點選論壇來訂閱，照網頁指示的步驟作，
-為了追蹤整個原始碼樹，請訂閱&a.svn-src-all.name;論壇。</para>
+	    為了追蹤整個原始碼樹，請訂閱&a.svn-src-all.name;論壇。</para>
 	</listitem>
 
 	<listitem>
-	  <para>要安裝一個新的&os.stable; 系統，
-從<link linkend="mirrors">&os; 鏡像站</link>安裝最新的&os.stable; 發行版
-或使用從 &os.stable;每個月的 snapshot built來安裝。更多關於快照的資訊，
-請參考<link xlink:href="&url.base;/snapshots/">www.freebsd.org/snapshots</link>
-	    。</para>
+	  <para>要安裝一個新的 &os.stable; 系統，
+	    從<link linkend="mirrors"> &os; 鏡像站</link>安裝最新的 &os.stable; 發行版
+	    或使用從 &os.stable;每個月的 snapshot built來安裝。更多關於快照的資訊，
+	    請參考<link xlink:href="&url.base;/snapshots/">www.freebsd.org/snapshots</link>。</para>
 
 	  <para>要編譯或升級已經安裝的 &os; 系統至 &os.stable;，
-請使用<link linkend="svn">svn</link>
+	    請使用<link linkend="svn">svn</link>
 	      <indexterm>
 		<primary>Subversion</primary>
 	      </indexterm> 來檢查要安裝分支的原始碼。
@@ -1001,7 +1008,7 @@ before running "/usr/sbin/freebsd-update install"</screen>
 	</listitem>
 
 	<listitem>
-	  <para>在編譯或升級到 &os.stable;之前
+	  <para>在編譯或升級到 &os.stable; 之前
 	    <indexterm>
 	      <primary>-STABLE</primary>
 		<secondary>compiling</secondary>
@@ -1018,14 +1025,13 @@ before running "/usr/sbin/freebsd-update install"</screen>
     <title>同步原始碼</title>
 
     <para>有幾種不同的方法保持 &os; 原始碼在最新狀態。
-這節比較這兩個主要的方法： <application>Subversion</application> 和 <application>CTM</application>。</para>
+	這節比較這兩個主要的方法： <application>Subversion</application> 和 <application>CTM</application>。</para>
 
     <warning>
       <para>雖然有可能只更新部份原始碼樹，但是唯一支援的更新步驟是更新整個樹併重新編譯所有在使用者空間的程式，
-例如在<filename>/bin</filename> 和
+	例如在<filename>/bin</filename> 和
 	<filename>/sbin</filename>，以及核心原始碼。
-	只更新部份原始碼樹，只更新核心，或只更新使用者空間的程式時常會導致編譯錯誤，核心錯誤或是資料惡化等問題。
-	</para>
+	只更新部份原始碼樹，只更新核心，或只更新使用者空間的程式時常會導致編譯錯誤，核心錯誤或是資料惡化等問題。</para>
     </warning>
 
     <indexterm>
@@ -1080,15 +1086,14 @@ before running "/usr/sbin/freebsd-update install"</screen>
     <indexterm>
       <primary>Rebuilding <quote>world</quote></primary>
     </indexterm>
-    <para>一旦本地端的原始碼樹和&os;的特定版本同步後，
-例如 &os.stable; or &os.current;，原始碼樹就可以用來重新編譯系統。
+    <para>一旦本地端的原始碼樹和 &os; 的特定版本同步後，
+      例如 &os.stable; or &os.current;，原始碼樹就可以用來重新編譯系統。
       這個過程叫重新編譯 world。</para>
 
-    <para>重新編譯 world<emphasis>之前</emphasis> ，請確定執行以下任務
-      :</para>
+    <para>重新編譯 world <emphasis>之前</emphasis> ，請確定執行以下任務:</para>
 
     <procedure>
-      <title>編譯 world<emphasis>之前</emphasis> 執行這些任務</title>
+      <title>編譯 world <emphasis>之前</emphasis> 執行這些任務</title>
 
       <step>
 	<para>備份所有重要資料到另一個系統或是可攜式媒體，
@@ -1205,21 +1210,20 @@ Script started, output file is /var/tmp/mw.out</screen>
 	<step>
 	  <para>If the build world process has previously been run on
 	    this system, a copy of the previous build may still exist
-	    in <filename class="directory">/usr/obj</filename>.  To
+	    in <filename>/usr/obj</filename>.  To
 	    speed up the new build world process, and possibly save
 	    some dependency headaches, remove this directory if it
 	    already exists:</para>
 
-	  <screen>&prompt.root; <userinput>cd /usr/obj</userinput>
-&prompt.root; <userinput>chflags -R noschg *</userinput>
-&prompt.root; <userinput>rm -rf *</userinput></screen>
+	  <screen>&prompt.root; <userinput>chflags -R noschg /usr/obj/*</userinput>
+&prompt.root; <userinput>rm -rf /usr/obj</userinput></screen>
 	</step>
 
 	<step>
 	  <para>Compile the new compiler and a few related tools, then
 	    use the new compiler to compile the rest of the new world.
 	    The result is saved to <filename
-	      class="directory">/usr/obj</filename>.</para>
+	      >/usr/obj</filename>.</para>
 
 	  <screen>&prompt.root; <userinput>cd /usr/src</userinput>
 &prompt.root; <userinput>make buildworld</userinput></screen>
@@ -1227,7 +1231,7 @@ Script started, output file is /var/tmp/mw.out</screen>
 
 	<step>
 	  <para>Use the new compiler residing in <filename
-	      class="directory">/usr/obj</filename> to build the new
+	      >/usr/obj</filename> to build the new
 	    kernel, in order to protect against compiler-kernel
 	    mismatches.  This is necessary, as certain memory
 	    structures may have changed, and programs like
@@ -1278,6 +1282,14 @@ Script started, output file is /var/tmp/mw.out</screen>
 	</step>
 
 	<step>
+	  <para>Optional: If a keyboard mapping other than the default
+	    US English is desired, it can be changed with
+	    &man.kbdmap.1;:</para>
+
+	  <screen>&prompt.root; <userinput>kbdmap</userinput></screen>
+	</step>
+
+	<step>
 	  <para>Then, for either file system, if the
 	    <acronym>CMOS</acronym> clock is set to local time (this
 	    is true if the output of &man.date.1; does not show the
@@ -1292,7 +1304,7 @@ Script started, output file is /var/tmp/mw.out</screen>
 	    <filename>/var</filename> and <filename>/usr</filename>,
 	    with new or changed configuration files.  The next step is
 	    to perform some initial configuration file updates
-	    to <filename class="directory">/etc</filename> in
+	    to <filename>/etc</filename> in
 	    preparation for the new world.  The following command
 	    compares only those files that are essential for the
 	    success of <buildtarget>installworld</buildtarget>.  For
@@ -1309,7 +1321,7 @@ Script started, output file is /var/tmp/mw.out</screen>
 
 	<step>
 	  <para>Install the new world and system binaries from
-	    <filename class="directory">/usr/obj</filename>.</para>
+	    <filename>/usr/obj</filename>.</para>
 
 	  <screen>&prompt.root; <userinput>cd /usr/src</userinput>
 &prompt.root; <userinput>make installworld</userinput></screen>
@@ -1831,7 +1843,7 @@ a good job of merging.
 	</varlistentry>
 
 	<varlistentry>
-	  <term>Can <filename class="directory">/usr/obj</filename>
+	  <term>Can <filename>/usr/obj</filename>
 	      be removed when finished?</term>
 
 	  <listitem>
@@ -1893,21 +1905,21 @@ Building everything..
 
 	    <para>Careful file system design or the use of ZFS
 	      datasets can make a difference.  Consider putting
-	      <filename class="directory">/usr/src</filename> and
-	      <filename class="directory">/usr/obj</filename> on
+	      <filename>/usr/src</filename> and
+	      <filename>/usr/obj</filename> on
 	      separate file systems.  If possible, place the file
 	      systems on separate disks on separate disk controllers.
 	      When mounting <filename
-		class="directory">/usr/src</filename>, use
+		>/usr/src</filename>, use
 	      <option>noatime</option> which prevents the file system
 	      from recording the file access time.  If <filename
-		class="directory">/usr/src</filename> is not on its
+		>/usr/src</filename> is not on its
 	      own file system, consider remounting <filename
-		class="directory">/usr</filename> with
+		>/usr</filename> with
 	      <option>noatime</option>.</para>
 
 	    <para>The file system holding <filename
-		class="directory">/usr/obj</filename> can be mounted
+		>/usr/obj</filename> can be mounted
 	      or remounted with <option>async</option> so that disk
 	      writes happen asynchronously.  The write completes
 	      immediately, and the data is written to the disk a few
@@ -2030,7 +2042,7 @@ Building everything..
       should list them all in its <varname>KERNCONF</varname>,
       listing its own kernel first.  The build machine must have the
       kernel configuration files for each machine in its <filename
-	class="directory">/usr/src/sys/<replaceable>arch</replaceable>/conf</filename>.</para>
+	>/usr/src/sys/<replaceable>arch</replaceable>/conf</filename>.</para>
 
     <para>On the build machine, build the kernel and world as
       described in <xref linkend="makeworld"/>, but do not install
